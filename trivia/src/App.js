@@ -9,8 +9,8 @@ import { Questions } from './components/Questions'
 
 function App() {
   const [category, setCategory] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState(null)
-  const [questions, setQuestion] = useState([])
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null)
+  const [questions, setQuestions] = useState([])
   const [url, setUrl] = useState()
 
   useEffect(() => {
@@ -18,37 +18,35 @@ function App() {
   }, [])
 
   useEffect(() => {
-    axios.get(url).then(res => setQuestion(res.data.results))
+    axios.get(url).then(res => setQuestions(res.data.results))
   }, [url])
 
 
   return (
     <div>
       <section className='trivia-container'>
+        {selectedCategoryId ? (
+          <Questions
+          selectedCategoryId={selectedCategoryId}
+          setSelectedCategoryId={setSelectedCategoryId}/>
+
+        ) : (
+          <>
         {category.map((topic) => (
           <div className='button-container'>
             <Categories
+              selectedCategoryId={selectedCategoryId}
+              setSelectedCategoryId={setSelectedCategoryId}
               topicId={topic.id}
               category={topic.name}
               setUrl={setUrl}/>
           </div>
         ))}
-        {console.log(url)}
-      </section>
-
-      <section className='question-container'>
-        {questions.map((ques) => (
-          <div>
-            <Questions
-              inquiry={ques.question}
-              correct={ques.correct_answer}
-              incorrect={ques.incorrect_answers} />
-          </div>
-        ))}
-      </section>
+        </>
+      )}
+        </section>
     </div>
-  );
-}
+)}
 
 
 export default App;
