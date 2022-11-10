@@ -35,7 +35,6 @@ function App() {
             {category.map((topic) => (
               <div className='button-container'>
                 <Categories
-                  selectedCategoryId={selectedCategoryId}
                   setSelectedCategoryId={setSelectedCategoryId}
                   topicId={topic.id}
                   category={topic.name}
