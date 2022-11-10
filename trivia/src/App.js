@@ -27,26 +27,27 @@ function App() {
       <section className='trivia-container'>
         {selectedCategoryId ? (
           <Questions
-          selectedCategoryId={selectedCategoryId}
-          setSelectedCategoryId={setSelectedCategoryId}/>
+            selectedCategoryId={selectedCategoryId}
+            setSelectedCategoryId={setSelectedCategoryId} />
 
         ) : (
           <>
-        {category.map((topic) => (
-          <div className='button-container'>
-            <Categories
-              selectedCategoryId={selectedCategoryId}
-              setSelectedCategoryId={setSelectedCategoryId}
-              topicId={topic.id}
-              category={topic.name}
-              setUrl={setUrl}/>
-          </div>
-        ))}
-        </>
-      )}
-        </section>
+            {category.map((topic) => (
+              <div className='button-container'>
+                <Categories
+                  selectedCategoryId={selectedCategoryId}
+                  setSelectedCategoryId={setSelectedCategoryId}
+                  topicId={topic.id}
+                  category={topic.name}
+                  setUrl={setUrl} />
+              </div>
+            ))}
+          </>
+        )}
+      </section>
     </div>
-)}
+  )
+}
 
 
 export default App;

@@ -5,26 +5,34 @@ import { requestQuestions } from '../requests';
 export const Questions = ({selectedCategoryId, setSelectedCategoryId}) => {
     const [triviaQuestion, setTriviaQuestion] = useState ('')
     const [correctAnswer, setCorrectAnswer] = useState ('')
-    const [incorrectAnswer, setIncorrectAnswer] = useState ('')
+    const [incorrectAnswer, setIncorrectAnswer] = useState ([])
+    let [counter, setCounter] = useState (0)
 
     const handleGoBack = () => setSelectedCategoryId(null)
+    const handleNext = () => setCounter(counter+=1)
 
+    
 useEffect(() => {
     requestQuestions(selectedCategoryId).then(res => {
-        setTriviaQuestion(res.data.results[0].question)
-        setCorrectAnswer(res.data.results[0].correct_answer)
-        setIncorrectAnswer(res.data.results[0].incorrect_answers)
-        {console.log(res.data.results[0].question)}
+        setTriviaQuestion(res.data.results[counter].question)
+        setCorrectAnswer(res.data.results[counter].correct_answer)
+        setIncorrectAnswer(res.data.results[counter].incorrect_answers)
     })
-}, [selectedCategoryId])
+}, [selectedCategoryId, counter] )
+
+    // let randomized = [correctAnswer+incorrectAnswer]
+    // console.log(randomized)
 
     return (
         <div>
             <button onClick={handleGoBack}>Home</button>
-            <p>TEST QUESTION</p>
-            <p>{selectedCategoryId}</p>
             <p>{triviaQuestion}</p>
-            <button>{correctAnswer} {incorrectAnswer}</button>
+            {console.log(triviaQuestion)}
+            <button onClick={handleNext}>{correctAnswer}</button>
+            {incorrectAnswer.map((wrong)=> (
+                <button>{wrong}</button>
+                ))}
+                {console.log(counter)}
         </div>
     )
 }
