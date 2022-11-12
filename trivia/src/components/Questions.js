@@ -7,13 +7,14 @@ export const Questions = ({ selectedCategoryId, setSelectedCategoryId }) => {
     const [correctAnswer, setCorrectAnswer] = useState('')
     const [incorrectAnswer, setIncorrectAnswer] = useState([])
     let [counter, setCounter] = useState(0)
-    // let [correctCounter, setCorrectCounter] = useState(0)
-    // let [incorrectCounter, setIncorrectCounter] = useState(0)
+    let [correctCounter, setCorrectCounter] = useState(0)
+    let [incorrectCounter, setIncorrectCounter] = useState(0)
+    let random = [correctAnswer+incorrectAnswer]
 
     const handleGoBack = () => setSelectedCategoryId(null)
     const handleNext = () => setCounter(counter += 1)
-    // const handleCorrect = () => setCorrectCounter(correctCounter += 1)
-    // const handleIncorrect = () => setIncorrectCounter(incorrectCounter += 1)
+    const handleCorrect = () => setCorrectCounter(correctCounter += 1)
+    const handleIncorrect = () => setIncorrectCounter(incorrectCounter += 1)
 
     useEffect(() => {
         requestQuestions(selectedCategoryId).then(res => {
@@ -28,12 +29,14 @@ export const Questions = ({ selectedCategoryId, setSelectedCategoryId }) => {
             <button onClick={handleGoBack}>Home</button>
             <p>{triviaQuestion.replace(/quot/g, '"').replace(/039/g, "'")}</p>
             {console.log(triviaQuestion)}
-            <button onClick={handleNext}>{correctAnswer}</button>
+            <button onClick={() => {handleNext(); handleCorrect()}}>{correctAnswer}</button>
             {incorrectAnswer.map((wrong, index) => (
-                <button key={index} onClick={handleNext}>{wrong.replace(/[^a-zA-Z0-9 ?%]/g, '')}</button>
+                <button key={index} onClick={() => {handleNext(); handleIncorrect()}}>{wrong.replace(/[^a-zA-Z0-9 ?%]/g, '')}</button>
             ))}
-            <p>Correct answers: {counter}</p>
+            <p>Correct answers: {correctCounter}</p>
+            <p>Incorrect answers: {incorrectCounter}</p>
             {console.log(counter)}
+            {console.log(random)}
         </div>
     )
 }
