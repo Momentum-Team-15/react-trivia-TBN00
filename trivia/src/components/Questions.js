@@ -9,7 +9,7 @@ export const Questions = ({ selectedCategoryId, setSelectedCategoryId }) => {
     let [counter, setCounter] = useState(0)
     let [correctCounter, setCorrectCounter] = useState(0)
     let [incorrectCounter, setIncorrectCounter] = useState(0)
-    let random = [correctAnswer+incorrectAnswer]
+    let random = [correctAnswer + incorrectAnswer]
 
     const handleGoBack = () => setSelectedCategoryId(null)
     const handleNext = () => setCounter(counter += 1)
@@ -25,18 +25,30 @@ export const Questions = ({ selectedCategoryId, setSelectedCategoryId }) => {
     }, [selectedCategoryId, counter])
 
     return (
-        <div>
-            <button onClick={handleGoBack}>Home</button>
-            <p>{triviaQuestion.replace(/quot/g, '"').replace(/039/g, "'")}</p>
-            {console.log(triviaQuestion)}
-            <button onClick={() => {handleNext(); handleCorrect()}}>{correctAnswer}</button>
-            {incorrectAnswer.map((wrong, index) => (
-                <button key={index} onClick={() => {handleNext(); handleIncorrect()}}>{wrong.replace(/[^a-zA-Z0-9 ?%]/g, '')}</button>
-            ))}
-            <p>Correct answers: {correctCounter}</p>
-            <p>Incorrect answers: {incorrectCounter}</p>
-            {console.log(counter)}
-            {console.log(random)}
-        </div>
+        <section>
+            <div>
+            {counter === 10 ? (
+                <>
+                {alert(`Correct: ${correctCounter} Incorrect: ${incorrectCounter}`)}
+                {handleGoBack()}
+                </>
+            ) : (
+                <>
+                <button onClick={handleGoBack}>Home</button>
+                <p>{triviaQuestion.replace(/quot/g, '"').replace(/039/g, "'")}</p>
+                <button onClick={() => { handleNext(); handleCorrect() }}>{correctAnswer}</button>
+                {incorrectAnswer.map((wrong, index) => (
+                    <button key={index} onClick={() => { handleNext(); handleIncorrect() }}>{wrong.replace(/[^a-zA-Z0-9 ?%]/g, '')}</button>
+                ))}
+
+                <p>Correct answers: {correctCounter}</p>
+                <p>Incorrect answers: {incorrectCounter}</p>
+                {console.log(triviaQuestion)}
+                {console.log(counter)}
+                {console.log(random)}
+                </>
+)}
+            </div>
+        </section>
     )
 }
