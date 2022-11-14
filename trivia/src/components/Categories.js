@@ -1,8 +1,8 @@
 export const Categories = ({ topicId, category, setSelectedCategoryId }) => {
 
     return (
-        <>
-            <button onClick={() => { setSelectedCategoryId(topicId) }}>{category}</button>
-        </>
+        <div className="buttons">
+            <button className='button is-danger' onClick={() => { setSelectedCategoryId(topicId) }}>{category}</button>
+        </div>
     )
 }

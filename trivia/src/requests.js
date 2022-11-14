@@ -9,7 +9,7 @@ export const requestCategories = async () => {
 
 
 export const requestQuestions = async (topicId) => {
-    const URL=`https://opentdb.com/api.php?amount=10&category=${topicId}`
+    const URL=`https://opentdb.com/api.php?amount=11&category=${topicId}`
     const response = await axios.get(URL)
 
     return response

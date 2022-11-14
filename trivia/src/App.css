@@ -1,3 +1,7 @@
+body {
+  background-color: cornflowerblue;
+}
+
 button {
   margin: 5px;
 }
@@ -9,13 +13,22 @@ button {
   flex-wrap: wrap;
 }
 
-
-.button-container {
-width:300px;
-display: grid;
-grid-template-columns: 100%;
+.trivia-page {
+  color: white;
 }
 
 .question-container {
   background-color: bisque;
+}
+
+.buttons {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.answer-buttons {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 100%;
 }

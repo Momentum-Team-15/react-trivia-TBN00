@@ -1,6 +1,8 @@
 import './App.css';
+import 'bulma/css/bulma.min.css'
 import { useState, useEffect } from 'react';
 import { requestCategories } from './requests'
+import { requestQuestions } from './requests';
 import { Categories } from './components/Categories'
 import { Questions } from './components/Questions'
 
@@ -9,10 +11,18 @@ import { Questions } from './components/Questions'
 function App() {
   const [category, setCategory] = useState([])
   const [selectedCategoryId, setSelectedCategoryId] = useState(null)
+  const [triviaQuestion, setTriviaQuestion] = useState([])
 
   useEffect(() => {
     requestCategories().then(res => setCategory(res.data.trivia_categories))
   }, [])
+
+  useEffect(() => {
+    requestQuestions(selectedCategoryId).then(res => {
+        setTriviaQuestion(res.data.results)
+    })
+}, [selectedCategoryId])
+
 
   return (
     <div>
@@ -20,7 +30,8 @@ function App() {
         {selectedCategoryId ? (
           <Questions
             selectedCategoryId={selectedCategoryId}
-            setSelectedCategoryId={setSelectedCategoryId} />
+            setSelectedCategoryId={setSelectedCategoryId} 
+            triviaQuestion={triviaQuestion} />
         ) : (
           <>
             {category.map((topic, index) => (
