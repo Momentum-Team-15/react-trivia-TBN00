@@ -1,10 +1,8 @@
-let triviaUrl = 'https://opentdb.com/api.php?amount=10&category='
-
-export const Categories = ({ topicId, category, setUrl, setSelectedCategoryId }) => {
+export const Categories = ({ topicId, category, setSelectedCategoryId }) => {
 
     return (
         <>
-            <button onClick={() => { setUrl(triviaUrl + topicId); setSelectedCategoryId(topicId) }}>{category}</button>
+            <button onClick={() => { setSelectedCategoryId(topicId) }}>{category}</button>
         </>
     )
 }
